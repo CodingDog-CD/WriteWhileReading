@@ -15,5 +15,8 @@ To achieve dynamic web page, there are several approaches. Some basic technologi
 - An asynchronous way for programs to send and retrieve XML data
 - JavaScript as a language to bind all this functionality together
 
+<b> XML </b><br>
+XML has proved pupular as a language for communication between programs. When this communication is carried by the HTTP protocol, it is called a Web Service.
+
 <b> Design Pattern: </b>
 MVC (Model-View-Controller) is a pattern in software design commonly used to implement user interfaces, data, and controlling logic. It emphasizes a separation between the software's business logic and display. This "separation of concerns" provides for a better division of labor and improved maintenance. Some other design patterns are based on MVC, such as MVVM (Model-View-Viewmodel), MVP (Model-View-Presenter), and MVW (Model-View-Whatever).
