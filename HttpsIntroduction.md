@@ -5,7 +5,8 @@ This protocol
 - protects users against eavesdroppers and man-in-the-middle (MitM) attacks
 - protects legitimate domain from domain name system (DNS) spoofing attacks
 
-Reference Video
+Reference
+- [What is Hypertext Transfer Protocol Secure](https://www.techtarget.com/searchsoftwarequality/definition/HTTPS)
 - [Why is HTTPS more secure than HTTP?](https://youtu.be/Az-lNU_wC-A)
 - [How does HTTPS work? What's a CA? What's a self-signed Certificate?](https://youtu.be/T4Df5_cojAs)
 
