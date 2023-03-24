@@ -30,8 +30,8 @@ The HTTPS protocol solves those problems by means of signing certificate. First 
 - Encryption
 - Decryption
 - Certificate (digital)
-- Certificate Authority - An entity to sign certificate. As other machine, a key pair (a public key and a private key) can be created by each CA.
-- Symmetric Key (Secret Key)
+- Certificate Authority - An entity to sign certificate. Like other machine, a key pair (a public key and a private key) can be created by each CA.
+- Symmetric Key (Secret Key) - used to encrypt/decrypt transfered data. Only you and the corresponding server in the whole internet have this symmetric key, so that the communication between you and the server is secured.
 
 ### Example connection flow
 When you type the home page URL of youtube, following happens:
@@ -48,7 +48,7 @@ The answer is: by signing certificate through an official, trusted Certificate A
 
 Official Trusted Certificate Authorities are stored in Browser, so that the Browser can verify, if the received certificate is signed by one of them. This prevent from man-in-the-middle attack. For example where an attacker could otherwise pretend to be a specific website using their own key pair and then you would think you're talking to youtube but you're actually talking to the attacker. However, that won't work because the attacker won't get their certificates signed by any trusted certificate authority.
 
-A signing flow looks like this:
+**A signing flow looks like this:**
 - Youtube wants to use HTTPS protocol from now on. It has created a Certificate Signing Request with its key pair and sends it to Google Certificate Authority. (Notice that both youtube and google CA can create their own key pair)
 - Google Certificate Authority sign Youtube's certificate and send it back to youtube server
 - Now Youtube's certificate is signed by a trusted Certificate Authority, namely Google CA
@@ -58,3 +58,8 @@ A signing flow looks like this:
 - Now, the user (browser) and youtube server are the only two entities in the internet who knows about that symmetric key. They can communicate with encrypted data using that symmetric key.
 
 ### Self-signed certificate
+Imagine that you have developed two apps. The app1 is developed to staging environment and the app2 wants to interacts with the HTTPS app, namely app1.
+- First of all, app1 creates a CSR and sends it to your very own Certificate Authority (Notice that your machine can create key pair and acts as a CA who signs certificate). 
+- Then your very own CA signs the certificate and every one who knows the public key of your very own CA can verify that the certificate of app1 is signed by it. 
+- Now app2 wants to interacts with app1. App1 is going to send its certificate to app2. At the beginning, of course app2 doesn't know about that certificate because it doesn't know the CA who signed this certificate. But as that is your apps, everything is in your hand. You could tell your app2 that it can trust your very own CA. 
+- Then app2 can verify the certificate of app1 and starts communicating with it. Of course it will create a symmetric key and encrypt it with the public key of app1 and send it back to app1, so that app1 can decrypt the symmetric key using its private key. Then their communication is going to be secured through this symmetric key.
