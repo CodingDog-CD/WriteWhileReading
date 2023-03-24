@@ -30,7 +30,7 @@ The HTTPS protocol solves those problems by means of signing certificate. First 
 - Encryption
 - Decryption
 - Certificate (digital)
-- Certificate Authority
+- Certificate Authority - An entity to sign certificate. As other machine, a key pair (a public key and a private key) can be created by each CA.
 - Symmetric Key (Secret Key)
 
 ### Example connection flow
@@ -45,5 +45,16 @@ When you type the home page URL of youtube, following happens:
 How you make sure that the party you're talking to is actually who they claim they are? 
 
 The answer is: by signing certificate through an official, trusted Certificate Authority.
+
+Official Trusted Certificate Authorities are stored in Browser, so that the Browser can verify, if the received certificate is signed by one of them. This prevent from man-in-the-middle attack. For example where an attacker could otherwise pretend to be a specific website using their own key pair and then you would think you're talking to youtube but you're actually talking to the attacker. However, that won't work because the attacker won't get their certificates signed by any trusted certificate authority.
+
+A signing flow looks like this:
+- Youtube wants to use HTTPS protocol from now on. It has created a Certificate Signing Request with its key pair and sends it to Google Certificate Authority. (Notice that both youtube and google CA can create their own key pair)
+- Google Certificate Authority sign Youtube's certificate and send it back to youtube server
+- Now Youtube's certificate is signed by a trusted Certificate Authority, namely Google CA
+- A Browser sends a requests to youtube over https protocol, youtube server then sends its certificate to the browser, where its CA, Expire time as well as public key, etc. are included in the certificate.
+- The browser doesn't know about youtube, however, it's aware of the Official Trusted Google Certificate Authority (including its public key). Therefore the browser can verify if the certificate from youtube is truely signed by Google CA.
+- After the certificate from youtube has been authorized, youtube's public key can then be used to encrypt a symmetric key and this encrypted symmetric key is going to be sent back to youtube server. Youtube server will then decrypt it. 
+- Now, the user (browser) and youtube server are the only two entities in the internet who knows about that symmetric key. They can communicate with encrypted data using that symmetric key.
 
 ### Self-signed certificate
