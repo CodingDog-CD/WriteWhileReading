@@ -16,6 +16,8 @@
 - Prometheus and Grafana
 - Build a monitoring concept and create a Grafana dashboard panel
 - HTTPS introduction (how does it work)
+- Open Service Broker Introduction and Dive deep into it
+- How does Cloud Foundry Work? Broker Registry into Cloud Foundry
 
 ## Solace
 - How to connect to Solace using command line
