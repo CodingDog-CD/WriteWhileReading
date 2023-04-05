@@ -19,6 +19,8 @@
 - Open Service Broker Introduction and Dive deep into it
 - How does Cloud Foundry Work? Broker Registry into Cloud Foundry
 - How does Linux package management work
+- think how to improve presentation ability
+- think how to improve analytic thinking and summarization ability
 
 ## Solace
 - How to connect to Solace using command line
