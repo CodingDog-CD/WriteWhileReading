@@ -22,6 +22,7 @@
 - think how to improve presentation ability
 - think how to improve analytic thinking and summarization ability
 - use kubebuilder to build a kubernetes controller project
+- use go-swagger to generate a REST API
 
 ## Solace
 - How to connect to Solace using command line
