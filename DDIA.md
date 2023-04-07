@@ -19,6 +19,8 @@ Reference: Google's Bigtable paper <<Bigtable: A Distributed Storage System for 
 
 ### Encoding and Evolution
 
+Dataflow through Databases
+
 Dataflow through Service: REST, RPC
 
 What is a service?
