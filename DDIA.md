@@ -19,9 +19,9 @@ Reference: Google's Bigtable paper <<Bigtable: A Distributed Storage System for 
 
 ### Encoding and Evolution
 
-Dataflow through Databases
+#### Dataflow through Databases
 
-Dataflow through Service: REST, RPC
+#### Dataflow through Service: REST, RPC
 
 What is a service?
 - When you have processes that need to communicate over a network, you can use the most common arrangement, where you have two roles: server and client
@@ -53,7 +53,7 @@ Difference between network request and local function call
 - When you make a network request, all those parameters need to be encoded into a sequence of bytes that can be sent over the network. It is problematic with larger objects.
 - The client and the service may be implemented in different programming languages, so the RPC framework must translate datatypes from one programming language into another.
 
-Message-Passing Dataflow
+#### Message-Passing Dataflow
 - REST and RPC, where one process sends a request over the network to another process and expects a response as quickly as possible
 - databases, where one process writes encoded data, and another process reads it again sometime in the future
 - A message broker is something in between (between REST/RPC and databases)
