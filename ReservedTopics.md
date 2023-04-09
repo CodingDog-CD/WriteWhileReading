@@ -33,3 +33,11 @@
 - Create a pipeline for potential topics
 - how to come up with good topics
 - how to improve my writting skills
+
+## Programming language
+
+### Golang
+- How to initial a project (module, package, etc.)
+- Flag
+- How to build a command line program
+- Data structure in Golang
