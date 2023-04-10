@@ -66,6 +66,46 @@ Difference between network request and local function call
 
 ### Replication
 
+Why do we need replicate data?
+- increase availability (e.g. failed node, network problem for a specific region, etc.)
+- keep data geographically close to your users, distribured datacenters helps to decrease latency
+- scale out the number of machines that can serve read queries (increase read throughput)
+
+What kind of difficulties?
+- data consistency, because data changes over time as users can write any time to the database
+
+Approach to deal with the difficulty
+- Leader-based replication 
+- Leaders and Followers
+- single-leader approach
+  - a replica is designated as leader, which receives write request and distribute the data changes to all followers
+  - other replicas are followers, which are normally read-only, serve for read operation
+
+Synchronous replication VS Asynchronous replication
+- synchronous replication makes sure that data in each replicas are always consistent
+- synchronous replication waits until all replicas response to the leader
+- synchronous replication will block further operations, when any follower in the whole replicationset encounters problems e.g. not reachable due to network problem, node failed, etc. Because no response can be given in such cases.
+- Asynchronous replication doesn't wait for response of followers
+- Asynchronous replication may cause problems like inconsistent data among different replicas
+- Asynchronous replication may combine with synchronous replication -> semi-synchronous
+- Semi-synchronous replication ensures one synchronous follower. Other followers use asynchronous approach
+
+Setting up new follower
+1. Take a consistent snapshot of the leader's database at some point in time - if possible, without taking a lock on the entire database
+2. copy the snapshot to the new follower node
+3. the follower connects to the leader and requests all the data changes that have happened since the snapshot was taken.
+4. When the follower has processed the backlog of data chagnes since the snapshot, we say it caught up.
+
+
+Handling Node Outages
+- Follwer failure: catch-up recovery. On its local disk, each follower keeps a log of the data changes it has received from the leader. Therefore, a follower can recover quite easily. From its log, it knows the last transaction that was processed before the fault occurred. Thus, the follower can connect to the leader and request all the data changes that occurred during the time when the follower was disconnected. 
+- Leader failure: Failover. A failover process means that one of the followers needs to be promoted to be the new leader, clients need to be reconfigured to send their writes to the new leader. 
+
+Failover process:
+1. **Determining that the leader has failed.** There are many things taht could potentially go wrong: crashes, power outage, network issues, etc. It's difficult to detect what has gone wrong, so most system simply use a timeout. 
+2. **Choosing a new leader.** Election process. The best leader candidate is usually the replica with the most up-to-date data changes from the old leader (to minimize any data loss). Getting all the nodes to agree on a new leader is a consensus problem
+3. **Reconfiguring the system to use the new leader.** Clients now need to send their write requests to the new leader. If the old leader comes back, it might still believe that it is the leader, not realizing that the other replicas have forced it to step down. The system needs to ensure that the old leader becomes a follower and recognizes the new leader.
+
 ### Partitioning
 
 ### Transactions
